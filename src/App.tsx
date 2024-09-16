@@ -14,10 +14,15 @@ const App = () => {
 	const [providersData, setProvidersData] = useState([]);
   useEffect(() => {
 		(async () =>  {
-			await pluginStore.executeFunction("PaymentProviders.refetch")
+			await pluginStore.executeFunction("PaymentProviders.refetch");
 			setProvidersData(pluginStore.executeFunction("PaymentProviders.getProviders"));
 		})()
   }, [enabledProviders]);
+  useEffect(() => {
+		(async () =>  {
+			setEnabledProviders(await pluginStore.executeFunction("PaymentProviders.refetch"));
+		})()
+  }, [window !== undefined]);
 
 	return (
 		<PluginProvider pluginStore={pluginStore}>

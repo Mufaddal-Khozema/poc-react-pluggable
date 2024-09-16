@@ -7,7 +7,6 @@ const Root = ({providers, enabledProviders, setEnabledProviders}) => {
 	const [checkedItems, setCheckedItems] = useState([]);
 	const checkboxes = [ 'Cash', 'Amazon', 'Stripe', 'Paypal' ];
 
-<<<<<<< HEAD
 	const handleProviderChange = async (event) => {
 		const { value, checked } = event.target;
 		let providers;
@@ -25,13 +24,6 @@ const Root = ({providers, enabledProviders, setEnabledProviders}) => {
 			body: JSON.stringify({data: providers.join(",")})
 		})
 		setEnabledProviders(providers);
-=======
-			if (checked) {
-				setEnabledProviders([...enabledProviders, value]);
-			} else {
-				setEnabledProviders(enabledProviders.filter((item) => item !== value));
-			}
->>>>>>> e15d7820b244b38e2b2128d6746c044ddecae779
 	};
 
 	const checkoutPage = (providers) => (
@@ -44,7 +36,6 @@ const Root = ({providers, enabledProviders, setEnabledProviders}) => {
 	);
 
 	const settingPage = () => (
-<<<<<<< HEAD
 		<>
 		<h1 style={{marginBottom: "5rem"}}>Settings</h1>
 		<div style={{width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: "1rem"}}>
@@ -54,7 +45,10 @@ const Root = ({providers, enabledProviders, setEnabledProviders}) => {
 						<input
 							type="checkbox"
 							value={item}
-							checked={enabledProviders.includes(item)}
+							checked={(() => {
+								console.log(item, enabledProviders)
+								return enabledProviders.includes(item)
+							})()}
 							onChange={handleProviderChange}
 						/>
 						{item}
@@ -63,26 +57,6 @@ const Root = ({providers, enabledProviders, setEnabledProviders}) => {
 			))}
 		</div>
 		</>
-=======
-			<>
-			<h1 style={{marginBottom: "5rem"}}>Settings</h1>
-			<div style={{width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: "1rem"}}>
-				{checkboxes.map((item, index) => (
-					<div key={index}>
-						<label>
-							<input
-								type="checkbox"
-								value={item.value}
-								checked={enabledProviders.includes(item.value)}
-								onChange={handleProviderChange}
-							/>
-							{item.label}
-						</label>
-					</div>
-				))}
-			</div>
-			</>
->>>>>>> e15d7820b244b38e2b2128d6746c044ddecae779
 	);
 
 	return (
