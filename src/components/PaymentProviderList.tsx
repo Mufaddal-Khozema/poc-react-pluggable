@@ -1,7 +1,7 @@
 import React from "react";
 
 const PaymentProviderList = ({providers}) => {
-	return providers.map(e => {
+	return providers?.map(e => {
 		return (
 			<button style={{
 				border: "1px #846A6A solid",
@@ -12,7 +12,8 @@ const PaymentProviderList = ({providers}) => {
 				alignItems: "center",
 				width: "75%",
 				cursor: "pointer",
-			}}>
+			}}
+			>
 				<img src={e.src} style={{width: "100px", maxHeight:"50px",  marginRight: "2rem"}}/>
 				<h2 style={{
 					fontWeight: "bold",

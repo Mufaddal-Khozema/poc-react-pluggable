@@ -5,32 +5,65 @@ const Root = ({providers, enabledProviders, setEnabledProviders}) => {
 	const [page, setPage] = useState("checkout");
 
 	const [checkedItems, setCheckedItems] = useState([]);
-	const checkboxes = [
-		{label: 'Cash', value: 'cash'},
-		{label: 'Amazon', value: 'amazon'},
-		{label: 'Stripe', value: 'stripe'},
-		{label: 'Paypal', value: 'paypal'}
-	];
-	
-	const handleProviderChange = (event) => {
-			const { value, checked } = event.target;
+	const checkboxes = [ 'Cash', 'Amazon', 'Stripe', 'Paypal' ];
 
+<<<<<<< HEAD
+	const handleProviderChange = async (event) => {
+		const { value, checked } = event.target;
+		let providers;
+
+		if (checked) {
+			providers = [...enabledProviders, value];
+		} else {
+			providers = enabledProviders.filter((item) => item !== value);
+		}
+		const res = await fetch("http://localhost:3000/", {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({data: providers.join(",")})
+		})
+		setEnabledProviders(providers);
+=======
 			if (checked) {
 				setEnabledProviders([...enabledProviders, value]);
 			} else {
 				setEnabledProviders(enabledProviders.filter((item) => item !== value));
 			}
+>>>>>>> e15d7820b244b38e2b2128d6746c044ddecae779
 	};
-	
+
 	const checkoutPage = (providers) => (
-			<>
-			<h1 style={{marginBottom: "5rem"}}>Checkout</h1>
-			<div style={{width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: "1rem"}}>
-				<PaymentProviderList providers={providers} />
-			</div>
-			</>
+		<>
+		<h1 style={{marginBottom: "5rem"}}>Checkout</h1>
+		<div style={{width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: "1rem"}}>
+			<PaymentProviderList providers={providers} />
+		</div>
+		</>
 	);
+
 	const settingPage = () => (
+<<<<<<< HEAD
+		<>
+		<h1 style={{marginBottom: "5rem"}}>Settings</h1>
+		<div style={{width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: "1rem"}}>
+			{checkboxes.map((item, i) => (
+				<div key={i}>
+					<label>
+						<input
+							type="checkbox"
+							value={item}
+							checked={enabledProviders.includes(item)}
+							onChange={handleProviderChange}
+						/>
+						{item}
+					</label>
+				</div>
+			))}
+		</div>
+		</>
+=======
 			<>
 			<h1 style={{marginBottom: "5rem"}}>Settings</h1>
 			<div style={{width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: "1rem"}}>
@@ -49,6 +82,7 @@ const Root = ({providers, enabledProviders, setEnabledProviders}) => {
 				))}
 			</div>
 			</>
+>>>>>>> e15d7820b244b38e2b2128d6746c044ddecae779
 	);
 
 	return (
