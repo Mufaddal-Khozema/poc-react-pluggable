@@ -1,11 +1,8 @@
 import React, {useState} from "react";
-import { usePluginStore } from "react-pluggable";
 import PaymentProviderList from "./PaymentProviderList.tsx";
 
 const Root = ({providers, enabledProviders, setEnabledProviders}) => {
-	const pluginStore = usePluginStore();
 	const [page, setPage] = useState("checkout");
-	let Renderer = pluginStore.executeFunction("Renderer.getRendererComponent");
 
 	const [checkedItems, setCheckedItems] = useState([]);
 	const checkboxes = [
@@ -19,9 +16,9 @@ const Root = ({providers, enabledProviders, setEnabledProviders}) => {
 			const { value, checked } = event.target;
 
 			if (checked) {
-					setEnabledProviders([...enabledProviders, value]);
+				setEnabledProviders([...enabledProviders, value]);
 			} else {
-					setEnabledProviders(enabledProviders.filter((item) => item !== value));
+				setEnabledProviders(enabledProviders.filter((item) => item !== value));
 			}
 	};
 	
@@ -37,31 +34,32 @@ const Root = ({providers, enabledProviders, setEnabledProviders}) => {
 			<>
 			<h1 style={{marginBottom: "5rem"}}>Settings</h1>
 			<div style={{width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: "1rem"}}>
-            {checkboxes.map((item, index) => (
-                <div key={index}>
-                    <label>
-                        <input
-                            type="checkbox"
-                            value={item.value}
-                            checked={enabledProviders.includes(item.value)}
-                            onChange={handleProviderChange}
-                        />
-                        {item.label}
-                    </label>
-                </div>
-            ))}
+				{checkboxes.map((item, index) => (
+					<div key={index}>
+						<label>
+							<input
+								type="checkbox"
+								value={item.value}
+								checked={enabledProviders.includes(item.value)}
+								onChange={handleProviderChange}
+							/>
+							{item.label}
+						</label>
+					</div>
+				))}
 			</div>
 			</>
 	);
 
 	return (
-		<div style={{
-			backgroundColor: "white",
-			height: "100%",
-			width: "100%",
-			display: "grid",
-			gridTemplateColumns: "20% 80%"
-		}}>
+		<div 
+			style={{
+				backgroundColor: "white",
+				height: "100%",
+				width: "100%",
+				display: "grid",
+				gridTemplateColumns: "20% 80%"
+			}}>
 			<div style={{backgroundColor: "#353B3C"}}>
 				<button 
 					type="button" style={{
@@ -88,15 +86,16 @@ const Root = ({providers, enabledProviders, setEnabledProviders}) => {
 				>
 				Setting</button>
 			</div>
-			<div style={{
-				height: "100%",
-				backgroundColor: "#EEF0F2",
-				display: "flex",
-				justifyContent: "center",
-				alignItems: "center",
-				flexDirection: "column",
-				padding: "0 15rem"
-			}}>
+			<div 
+				style={{
+					height: "100%",
+					backgroundColor: "#EEF0F2",
+					display: "flex",
+					justifyContent: "center",
+					alignItems: "center",
+					flexDirection: "column",
+					padding: "0 15rem"
+				}}>
 				{ page === "checkout" ? checkoutPage(providers) : settingPage()}
 			</div>
 		</div>
